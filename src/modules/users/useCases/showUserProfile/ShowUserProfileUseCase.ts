@@ -11,9 +11,10 @@ export class ShowUserProfileUseCase {
   ) {}
 
   async execute(user_id: string) {
-    const user = await this.usersRepository.findById(user_id);
+    const user = await this.usersRepository.findById(user_id);    
 
-    if (!user) {
+    if (user === null) {
+      console.log("entrei aqui")
       throw new ShowUserProfileError();
     }
 

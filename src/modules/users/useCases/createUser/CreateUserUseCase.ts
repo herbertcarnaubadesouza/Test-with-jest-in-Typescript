@@ -5,6 +5,7 @@ import { CreateUserError } from "./CreateUserError";
 
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { ICreateUserDTO } from "./ICreateUserDTO";
+import { User } from "@modules/users/entities/User";
 
 @injectable()
 export class CreateUserUseCase {
@@ -13,21 +14,27 @@ export class CreateUserUseCase {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute({ name, email, password }: ICreateUserDTO) {
-    const userAlreadyExists = await this.usersRepository.findByEmail(email);
+  async execute({ name, email, password }: ICreateUserDTO) : Promise<void>{
 
-    if (userAlreadyExists) {
+    try{
+      const userAlreadyExists = await this.usersRepository.findByEmail(email);
+
+      if (userAlreadyExists ) {
+        console.log("entrei aqui")
+        throw new CreateUserError();
+      }
+
+      const passwordHash = await hash(password, 8);
+
+      await this.usersRepository.create({
+        email,
+        name,
+        password: passwordHash,
+      });
+    }
+    catch{
       throw new CreateUserError();
     }
-
-    const passwordHash = await hash(password, 8);
-
-    const user = await this.usersRepository.create({
-      email,
-      name,
-      password: passwordHash,
-    });
-
-    return user;
+    
   }
 }
