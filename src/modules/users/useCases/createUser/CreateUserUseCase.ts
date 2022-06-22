@@ -14,27 +14,21 @@ export class CreateUserUseCase {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute({ name, email, password }: ICreateUserDTO) : Promise<void>{
+  async execute({ name, email, password }: ICreateUserDTO) : Promise<User>{
 
-    try{
       const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
       if (userAlreadyExists ) {
-        console.log("entrei aqui")
         throw new CreateUserError();
       }
 
       const passwordHash = await hash(password, 8);
 
-      await this.usersRepository.create({
+      return await this.usersRepository.create({
         email,
         name,
         password: passwordHash,
       });
-    }
-    catch{
-      throw new CreateUserError();
-    }
     
   }
 }

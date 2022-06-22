@@ -1,3 +1,4 @@
+import { AppError } from "@shared/errors/AppError";
 import { InMemoryUsersRepository } from "../../repositories/in-memory/InMemoryUsersRepository";
 import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
 import { ICreateUserDTO } from "../createUser/ICreateUserDTO";
@@ -29,23 +30,24 @@ describe("Create an User", () => {
     });
 
 
-    it("should not be able to create an user that already exists", async () => {        
+    it("should not be able to create an user that already exists",  () => {        
 
-        await expect(async () => {          
+        
+        expect(async () => {          
     
             await createUserUseCase.execute({ 
-                name: "User Test",
-                email: "user@test.com",            
+                name: "User duplicate",
+                email: "userduplicate@test.com",            
                 password: "1234"
             });
 
             await createUserUseCase.execute({ 
-                name: "User Test 2",
-                email: "user@test.com",            
+                name: "User duplicate",
+                email: "userduplicate@test.com",            
                 password: "1234"
             });                              
            
         
-        }).rejects.toBeInstanceOf(CreateUserError);
+        }).rejects.toMatchObject({statusCode: 400});
     });
 });

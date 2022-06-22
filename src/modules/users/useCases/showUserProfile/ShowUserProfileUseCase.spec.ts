@@ -35,19 +35,9 @@ describe("Show User Profile", () => {
 
 
     it("should not be to show user profile if the user not exists", () => {
-        expect(async () => {
-
-            const user: ICreateUserDTO = {
-                name: "User Test",
-                email: "user@test.com",            
-                password: "1234"
-            };
+        expect(async () => {          
     
-            await createUserUseCase.execute(user);        
-            
-            const returnedUser = await usersRepositoryInMemory.findByEmail(user.email);
-    
-            const test = await showUserProfileUseCase.execute(returnedUser.id);
+            await showUserProfileUseCase.execute("5445343");
         
         }).rejects.toBeInstanceOf(ShowUserProfileError);
     });
