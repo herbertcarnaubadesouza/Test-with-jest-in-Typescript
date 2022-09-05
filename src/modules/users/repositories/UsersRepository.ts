@@ -1,8 +1,11 @@
+import { ITransferMoneyDTO } from "../../statements/useCases/transferOperation/ITransferMoneyDTO";
 import { getRepository, Repository } from "typeorm";
 
 import { User } from "../entities/User";
 import { ICreateUserDTO } from "../useCases/createUser/ICreateUserDTO";
 import { IUsersRepository } from "./IUsersRepository";
+import { Statement } from "@modules/statements/entities/Statement";
+
 
 export class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;
@@ -26,4 +29,6 @@ export class UsersRepository implements IUsersRepository {
 
     return this.repository.save(user);
   }
+
+
 }

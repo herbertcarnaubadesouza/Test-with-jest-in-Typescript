@@ -1,0 +1,16 @@
+{
+  "configurations": [
+    {
+      "version": "0.2.0",
+      "type": "node",
+      "request": "attach",
+      "name": "Docker: Attach to Node",
+      "remoteRoot": "/usr/app",
+      "port": 9229,
+      "address": "localhost",
+      "sourceMapPathOverrides": {
+        "/app/*": "${workspaceRoot}/*"
+      }
+    }
+  ]
+}

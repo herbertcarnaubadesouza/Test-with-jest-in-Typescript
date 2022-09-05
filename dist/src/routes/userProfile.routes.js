@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userProfileRouter = void 0;
+var express_1 = require("express");
+var ShowUserProfileController_1 = require("../modules/users/useCases/showUserProfile/ShowUserProfileController");
+var ensureAuthenticated_1 = require("../shared/infra/http/middlwares/ensureAuthenticated");
+var userProfileRouter = express_1.Router();
+exports.userProfileRouter = userProfileRouter;
+var showUserProfileController = new ShowUserProfileController_1.ShowUserProfileController();
+userProfileRouter.use(ensureAuthenticated_1.ensureAuthenticated);
+userProfileRouter.get('/', showUserProfileController.execute);

@@ -4,9 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn ./src/server.ts",
-    "test": "set NODE_ENV=test&&jest --runInBand --detectOpenHandles",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli"
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect=0.0.0.0:9229 --transpile-only --ignore-watch node_modules --respawn ./src/server.ts",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
+    "test": "set NODE_ENV=test&&jest --runInBand --detectOpenHandles"
   },
   "dependencies": {
     "@types/jest": "^28.1.2",
@@ -20,6 +20,7 @@
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "supertest": "^6.2.3",
+    "tsconfig-paths": "^4.1.0",
     "tsyringe": "^4.5.0",
     "typeorm": "^0.2.31",
     "uuid": "^8.3.2"
@@ -32,6 +33,7 @@
     "@types/node": "^14.14.35",
     "@types/uuid": "^8.3.0",
     "ts-jest": "^28.0.5",
+    "ts-node": "^10.9.1",
     "ts-node-dev": "^1.1.6",
     "typescript": "^4.2.3"
   }

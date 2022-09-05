@@ -1,3 +1,4 @@
+import { ITransferMoneyDTO } from '../../statements/useCases/transferOperation/ITransferMoneyDTO';
 import { User } from '../entities/User';
 import { ICreateUserDTO } from '../useCases/createUser/ICreateUserDTO';
 

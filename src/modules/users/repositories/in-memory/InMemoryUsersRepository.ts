@@ -1,9 +1,11 @@
+import { ITransferMoneyDTO } from "@modules/statements/useCases/transferOperation/ITransferMoneyDTO";
 import { User } from "../../entities/User";
 
 import { ICreateUserDTO } from "../../useCases/createUser/ICreateUserDTO";
 import { IUsersRepository } from "../IUsersRepository";
 
 export class InMemoryUsersRepository implements IUsersRepository {
+  transferMoney: (data: ITransferMoneyDTO) => Promise<void>;
   private users: User[] = [];
 
   async findByEmail(email: string): Promise<User | undefined> {
